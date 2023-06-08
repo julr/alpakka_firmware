@@ -13,15 +13,13 @@ else()
     include(scripts/pico_sdk_import.cmake)
 endif()
 
-set(PROJECT alpakka)
-project(${PROJECT} C CXX ASM)
+project(alpakka C CXX ASM)
+
 pico_sdk_init()
 
-add_executable(${PROJECT}
-    src/main.c
-)
+add_executable(${CMAKE_PROJECT_NAME})
 
-target_link_libraries(${PROJECT}
+target_link_libraries(${CMAKE_PROJECT_NAME}
     pico_stdlib
     pico_multicore
     pico_time
@@ -38,38 +36,7 @@ target_link_libraries(${PROJECT}
     tinyusb_device
 )
 
-target_include_directories(${PROJECT} PUBLIC
-    src
-    src/headers
-)
+pico_enable_stdio_uart(${CMAKE_PROJECT_NAME} 1)
+pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
 
-target_sources(${PROJECT} PUBLIC
-    src/bus.c
-    src/button.c
-    src/config.c
-    src/dhat.c
-    src/gyro.c
-    src/helper.c
-    src/hid.c
-    src/imu.c
-    src/led.c
-    src/nvm.c
-    src/profile.c
-    src/profiles/console_legacy.c
-    src/profiles/console.c
-    src/profiles/desktop.c
-    src/profiles/fps_fusion.c
-    src/profiles/fps_wasd.c
-    src/profiles/home.c
-    src/profiles/none.c
-    src/self_test.c
-    src/rotary.c
-    src/thumbstick.c
-    src/touch.c
-    src/tusb_config.c
-    src/uart.c
-    src/xinput.c
-)
-
-pico_enable_stdio_uart(${PROJECT} 1)
-pico_add_extra_outputs(${PROJECT})
+add_subdirectory(src)
