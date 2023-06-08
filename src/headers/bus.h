@@ -4,6 +4,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdint.h>
 
 #define I2C_FREQ 400 * 1000  // Hz.
 #define SPI_FREQ 10 * 1000 * 1000  // Hz.
