@@ -47,4 +47,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 pico_enable_stdio_uart(${CMAKE_PROJECT_NAME} 1)
 pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
 
+add_custom_target(version
+    COMMAND ${CMAKE_COMMAND} -DVERSION_HEADER=${CMAKE_SOURCE_DIR}/src/headers/version.h -P ${CMAKE_SOURCE_DIR}/scripts/version.cmake
+)
+
+add_dependencies(${CMAKE_PROJECT_NAME} version)
+
 add_subdirectory(src)

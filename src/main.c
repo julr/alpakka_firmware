@@ -14,12 +14,7 @@
 #include "imu.h"
 #include "hid.h"
 #include "uart.h"
-
-#if __has_include("version.h")
-    #include "version.h"
-#else
-    #define VERSION "undefined"
-#endif
+#include "version.h"
 
 void stdio_init() {
     stdio_uart_init();
