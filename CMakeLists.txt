@@ -50,7 +50,47 @@ pico_add_extra_outputs(${CMAKE_PROJECT_NAME})
 add_custom_target(version
     COMMAND ${CMAKE_COMMAND} -DVERSION_HEADER=${CMAKE_SOURCE_DIR}/src/headers/version.h -P ${CMAKE_SOURCE_DIR}/scripts/version.cmake
 )
-
 add_dependencies(${CMAKE_PROJECT_NAME} version)
+
+if (NOT CMAKE_HOST_WIN32)
+    add_custom_target(load
+        COMMAND sh -e ${CMAKE_SOURCE_DIR}/scripts/load.sh
+    )
+
+    add_custom_target(reload
+        DEPENDS ${CMAKE_PROJECT_NAME}
+        COMMAND sh -e ${CMAKE_SOURCE_DIR}/scripts/load.sh
+    )
+
+    add_custom_target(session
+        COMMAND sh -e ${CMAKE_SOURCE_DIR}/scripts/session.sh
+    )
+
+    add_custom_target(session_quit
+        COMMAND screen -S alpakka -X quit
+    )
+
+    add_custom_target(restart
+        COMMAND screen -S alpakka -X stuff R
+    )
+
+    add_custom_target(bootsel
+        COMMAND screen -S alpakka -X stuff B
+    )
+
+    add_custom_target(calibrate
+        COMMAND screen -S alpakka -X stuff C
+    )
+
+    add_custom_target(format
+        COMMAND screen -S alpakka -X stuff F
+    )
+
+    add_custom_target(test
+        COMMAND screen -S alpakka -X stuff T
+    )
+else()
+    message(WARNING "Windows host detected, sorry but advanced targets for e.g. auto flashing are not yet available on Windows.")
+endif()
 
 add_subdirectory(src)
