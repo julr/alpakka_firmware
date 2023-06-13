@@ -12,7 +12,10 @@ else()
         execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags
                         OUTPUT_VARIABLE TAG
                         ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-        # TODO: Check if TAG was set, it might be empty (e.g. source from a ZIP)
+        # If this is not a git repo (e.g. when extracted from a zip, then the TAG will be empty)
+        if("${TAG}" STREQUAL "")
+            set(TAG "unknown")
+        endif()
     endif()
 endif()
 
