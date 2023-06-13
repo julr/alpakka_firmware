@@ -14,18 +14,23 @@
 
 ## System dependencies
 With `apt`, `rpm`, `pacman`, `brew`, or the equivalent package manager of your system, install:
-- **gcc**
+- **gcc-arm-none-eabi**
+- **libnewlib-arm-none-eabi**
+- **libstdc++-arm-none-eabi-newlib**
 - **git**
 - **cmake**
+- **make**
 
 ## Project dependencies
-- `make install`: Download and configure dependencies automatically.
+- `pico-sdk`: Either install locally according to the [official documentation](https://github.com/raspberrypi/pico-sdk#quick-start-your-own-project) or set `PICO_SDK_FETCH_FROM_GIT` as environment or cmake variable.
+
+## Development configuration
+- `cmake -B./build -G"Unix Makefiles"`: Generate a Makefile based project in the `build` directory
 
 ## Development commands
 - `make`: Build compilation environment and build executables.
-- `make rebuild`: Build executables again using cache (faster).
 - `make load`: Load built .uf2 file into the Pico (requires bootsel mode or active session).
-- `make reload`: Do both `rebuild` and `load` commands (for dev convenience).
+- `make reload`: Do a rebuild and then execute the `load` command (for dev convenience).
 - `make clean`: Delete previous build files.
 - `make session`: Connect to UART serial stdio, and display controller log.
 
