@@ -1,0 +1,13 @@
+{
+	"name": "Debian Pico-SDK",
+	"dockerFile": "Dockerfile",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z", 
+    "workspaceFolder": "/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack"
+			]
+		}
+	}
+}
